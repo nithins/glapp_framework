@@ -1,0 +1,6 @@
+<RCC>
+  <qresource prefix="images" >
+    <file>camera.png</file>
+    <file>player_rec.png</file>
+  </qresource>
+</RCC>

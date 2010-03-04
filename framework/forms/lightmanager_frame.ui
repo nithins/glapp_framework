@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Lightmanager_Frame</class>
+ <widget class="QFrame" name="Lightmanager_Frame">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>322</width>
+    <height>786</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <widget class="QCheckBox" name="show_light_graphics_checkBox">
+   <property name="geometry">
+    <rect>
+     <x>30</x>
+     <y>10</y>
+     <width>161</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Show Light Graphics</string>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QGroupBox" name="material_property_groupBox">
+   <property name="geometry">
+    <rect>
+     <x>160</x>
+     <y>80</y>
+     <width>141</width>
+     <height>150</height>
+    </rect>
+   </property>
+   <property name="title">
+    <string>Material Properties</string>
+   </property>
+   <property name="checkable">
+    <bool>false</bool>
+   </property>
+   <property name="checked">
+    <bool>false</bool>
+   </property>
+   <widget class="QtColorPicker" name="material_specular_colorpicker">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>40</y>
+      <width>100</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Specular</string>
+    </property>
+    <property name="colorDialog" stdset="0">
+     <bool>true</bool>
+    </property>
+    <property name="useStandardColors" stdset="0">
+     <bool>true</bool>
+    </property>
+   </widget>
+   <widget class="QtColorPicker" name="material_emission_colorpicker">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>70</y>
+      <width>100</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Emission</string>
+    </property>
+    <property name="colorDialog" stdset="0">
+     <bool>true</bool>
+    </property>
+    <property name="useStandardColors" stdset="0">
+     <bool>true</bool>
+    </property>
+   </widget>
+   <widget class="QSpinBox" name="material_shininess_spinBox">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>100</y>
+      <width>58</width>
+      <height>26</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLabel" name="material_shininess_label">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>130</y>
+      <width>71</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Shininess</string>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QSpinBox" name="light_number_spinBox">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>50</y>
+     <width>40</width>
+     <height>26</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QGroupBox" name="light_property_groupBox">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>80</y>
+     <width>141</width>
+     <height>171</height>
+    </rect>
+   </property>
+   <property name="title">
+    <string>Light Properties</string>
+   </property>
+   <property name="checkable">
+    <bool>false</bool>
+   </property>
+   <property name="checked">
+    <bool>false</bool>
+   </property>
+   <widget class="QComboBox" name="light_type_comboBox">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>40</y>
+      <width>101</width>
+      <height>25</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QtColorPicker" name="light_ambient_colorpicker">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>70</y>
+      <width>100</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Ambient </string>
+    </property>
+    <property name="colorDialog" stdset="0">
+     <bool>true</bool>
+    </property>
+    <property name="useStandardColors" stdset="0">
+     <bool>true</bool>
+    </property>
+   </widget>
+   <widget class="QtColorPicker" name="light_specular_colorpicker">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>100</y>
+      <width>100</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Specular</string>
+    </property>
+    <property name="colorDialog" stdset="0">
+     <bool>true</bool>
+    </property>
+    <property name="useStandardColors" stdset="0">
+     <bool>true</bool>
+    </property>
+   </widget>
+   <widget class="QtColorPicker" name="light_diffuse_colorpicker">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>130</y>
+      <width>100</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Diffuse</string>
+    </property>
+    <property name="colorDialog" stdset="0">
+     <bool>true</bool>
+    </property>
+    <property name="useStandardColors" stdset="0">
+     <bool>true</bool>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QLabel" name="light_number_label">
+   <property name="geometry">
+    <rect>
+     <x>50</x>
+     <y>55</y>
+     <width>90</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Light No</string>
+   </property>
+  </widget>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>QtColorPicker</class>
+   <extends>QPushButton</extends>
+   <header>qtcolorpicker.h</header>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>
