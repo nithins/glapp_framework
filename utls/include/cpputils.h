@@ -198,7 +198,7 @@ class num_generator_t
 template <typename T,typename ST>
 T  shift_right(const T & t,const ST &st)
 {
-  return t<<st;
+  return t>>st;
 }
 
 template<typename T, std::size_t N,bool O= true>

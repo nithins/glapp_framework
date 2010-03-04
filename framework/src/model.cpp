@@ -99,9 +99,13 @@ class TModelMgr: public IModelMgr
 
         glPushMatrix();
 
+        IModel *m = i->first;
+
+        m->Name();
+
         if ( ( *i ).second == true )
         {
-          glPushName ( ( * ( *i ).first ).IID::GetID() );
+          glPushName ( m->IID::GetID() );
         }
 
         polycount += ( * ( *i ).first ).Render();
