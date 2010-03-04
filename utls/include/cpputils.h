@@ -194,34 +194,43 @@ class num_generator_t
     }
 };
 
+
+template <typename T,typename ST>
+T  shift_right(const T & t,const ST &st)
+{
+  return t<<st;
+}
+
 template<typename T, std::size_t N,bool O= true>
 class n_tuple_t: public boost::array<T,N>
 {
-  typedef typename boost::array<T,N>              base_t;
 
-  typedef typename base_t::value_type             value_type;
-  typedef typename base_t::iterator               iterator;
-  typedef typename base_t::const_iterator         const_iterator;
-  typedef typename base_t::reference              reference;
-  typedef typename base_t::const_reference        const_reference;
-  typedef typename base_t::size_type              size_type;
-  typedef typename base_t::difference_type        difference_type;
-  typedef typename base_t::reverse_iterator       reverse_iterator;
-  typedef typename base_t::const_reverse_iterator const_reverse_iterator;
+  public:
+    typedef typename boost::array<T,N>              base_t;
 
-  friend std::ostream &operator<< ( std::ostream &stream, const n_tuple_t &e )
-  {
-    stream<<"(";
-    if(N > 0)
+    typedef typename base_t::value_type             value_type;
+    typedef typename base_t::iterator               iterator;
+    typedef typename base_t::const_iterator         const_iterator;
+    typedef typename base_t::reference              reference;
+    typedef typename base_t::const_reference        const_reference;
+    typedef typename base_t::size_type              size_type;
+    typedef typename base_t::difference_type        difference_type;
+    typedef typename base_t::reverse_iterator       reverse_iterator;
+    typedef typename base_t::const_reverse_iterator const_reverse_iterator;
+
+    friend std::ostream &operator<< ( std::ostream &stream, const n_tuple_t &e )
     {
-      stream<<e.elems[0];
-      for(unsigned int i = 1 ; i < N ; ++i)
+      stream<<"(";
+      if(N > 0)
       {
-        stream<<","<<e.elems[i];
+        stream<<e.elems[0];
+        for(unsigned int i = 1 ; i < N ; ++i)
+        {
+          stream<<","<<e.elems[i];
+        }
       }
+      stream<<")";
     }
-    stream<<")";
-  }
 };
 
 template<class T, std::size_t N>
