@@ -12,8 +12,11 @@ namespace glutils
   typedef unsigned int uint;
   typedef unsigned int uchar;
 
-  typedef unsigned int point_idx_t;
-  typedef two_tuple_t<unsigned int> line_idx_t;
+  typedef unsigned int idx_t;
+
+  typedef idx_t point_idx_t;
+  typedef two_tuple_t<idx_t> line_idx_t;
+  typedef three_tuple_t<idx_t> tri_idx_t;
   typedef three_tuple_t<double> vertex_t;
   typedef three_tuple_t<double> color_t;
 
@@ -69,6 +72,11 @@ namespace glutils
       return m_target;
     }
 
+    inline GLuint src_comp()
+    {
+      return m_src_comp;
+    }
+
     uint     get_num_items() const;
 
     GLvoid  *get_item_comp_ptr ( const uint &itemno, const uint &compno ) const;
@@ -101,6 +109,8 @@ namespace glutils
   // list can be destroyed after this call.
 
   bufobj_ptr_t make_buf_obj( const std::vector<vertex_t> &);
+
+  bufobj_ptr_t make_buf_obj( const std::vector<tri_idx_t> &);
 
   bufobj_ptr_t make_buf_obj( const std::vector<line_idx_t> &);
 
