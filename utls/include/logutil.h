@@ -40,6 +40,9 @@ std::cout<<"LOG      ::"<<#var<<" = "<<var<<std::endl;
 
 #define _LOG_FILE_N_FUNC() _LOG(__FILE__<<"::"<<__func__);
 
+#define _SSTR(EXP)\
+((std::stringstream&)((std::stringstream())<<EXP)).str()
+
 
 
 template <typename iter_t>
