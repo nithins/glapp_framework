@@ -13,6 +13,31 @@
 
 namespace glutils
 {
+
+  bool check_indexes_in_range(bufobj_ptr_t m_ver_bo,
+                              bufobj_ptr_t m_idx_bo)
+  {
+
+    uint max_idx = m_ver_bo->get_num_items();
+
+    uint num_idxs = m_idx_bo->get_num_items();
+
+    for(uint i = 0 ;i < num_idxs;++i )
+    {
+      for(uint j = 0 ; j < m_idx_bo->src_comp();++j)
+      {
+        uint *idx = (uint*)m_idx_bo->get_item_comp_ptr(i,j);
+
+        if(*idx >= max_idx)
+          return false;
+      }
+    }
+
+    return true;
+
+  }
+
+
   class buffered_triangles_ren_t: virtual public renderable_t
   {
 
@@ -58,6 +83,9 @@ namespace glutils
       {
         render_func = &buffered_triangles_ren_t::render_with_color;
       }
+
+      if(!check_indexes_in_range(m_ver_bo,m_tri_bo))
+        throw std::logic_error("the index set is indexing out of ver range");
 
       double * normals = compute_normals ( m_ver_bo, m_tri_bo );
 
