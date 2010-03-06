@@ -59,6 +59,10 @@
   V[1] = v2;					\
   V[2] = v3;					\
 
+#define SETVEC2(V,v1,v2)			\
+  V[0] = v1;					\
+  V[1] = v2;					\
+
 #define SETVEC4(V,v1,v2,v3,v4)			\
   V[0] = v1;					\
   V[1] = v2;					\
