@@ -22,9 +22,17 @@
 
 #include <iostream>
 #include <sstream>
+#include <fstream>
 
 
 std::string get_cur_time();
+
+#define _LOG_TO_FILE(_LOG_STR,_LOG_FILE)\
+{\
+  std::fstream __FS;\
+  __FS.open(_LOG_FILE,std::ios::ate|std::ios::out);\
+  __FS<<_LOG_STR;\
+}\
 
 #define _LOG(logstr)\
 std::cout<<get_cur_time() <<"::LOG      ::" << logstr <<std::endl
