@@ -55,14 +55,6 @@ TFramework::TFramework
 #endif
 )
 {
-
-  clock_gettime ( CLOCK_REALTIME, &progInit_time );
-
-  accumTimeSecs   = 0.0 ;
-  accumPolyCount  = 0.0 ;
-  accumFrameCount = 0.0 ;
-  lastDispPassSec = 0.0 ;
-
   /*initial parameters */
   m_bAnimating  = false ;
 
@@ -73,6 +65,10 @@ TFramework::TFramework
   g_bWireframe = false;
   g_bShowFocalPoint = false;
   g_bShadowsOn = false;
+
+  m_timer.start();
+  m_frame_ct = 0;
+  m_last_fps_rpt_time = 0.0;
 
   m_InputMgr.reset(IInputMgr::Create ( this,this));
   m_ModelMgr.reset(IModelMgr::Create ( this ));
@@ -165,12 +161,10 @@ void TFramework::gl_Init ()
   s_cam->SetPerspective();
 }
 
+#define FPS_REPORT_INTERVAL 5
+
 bool TFramework::gl_Display ()
 {
-
-  timespec starttime, endtime;
-  clock_gettime ( CLOCK_REALTIME, &starttime );
-
   /* clears requested bits (color and depth) in glut window */
   glClear ( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT );
 
@@ -195,9 +189,7 @@ bool TFramework::gl_Display ()
     s_cam->DrawFocus();
   }
 
-  int polycount = 0 ;
-
-  polycount += m_ModelMgr->RenderAll();
+  m_ModelMgr->RenderAll();
 
   glPopMatrix();
 
@@ -209,18 +201,11 @@ bool TFramework::gl_Display ()
     glFlush();
   }
 
-  clock_gettime ( CLOCK_REALTIME, &endtime );
+  double timer_interval = m_timer.getElapsedTimeInSec() - m_last_fps_rpt_time;
 
-#define GETSECS(T) ((((double)(T).tv_sec)*1000000000.0+(double)(T).tv_nsec)/1000000000.0)
-
-
-  accumPolyCount  += polycount;
-  accumFrameCount += 1;
-  accumTimeSecs   += GETSECS ( endtime ) - GETSECS ( starttime );
-
-  if ( ( GETSECS ( endtime ) - lastDispPassSec > 5 ) && ( accumTimeSecs != 0 ) )
+  if(timer_interval > FPS_REPORT_INTERVAL )
   {
-    float fps = accumFrameCount / ( GETSECS ( endtime ) - lastDispPassSec );
+    double fps = (double)m_frame_ct / timer_interval;
 
     stringstream message;
 
@@ -228,10 +213,13 @@ bool TFramework::gl_Display ()
 
     ShowStatusMessage ( message.str().c_str() );
 
-    accumTimeSecs   = 0;
-    accumPolyCount  = 0;
-    accumFrameCount = 0;
-    lastDispPassSec = GETSECS ( endtime );
+    m_frame_ct = 0;
+
+    m_last_fps_rpt_time += timer_interval;
+  }
+  else
+  {
+    m_frame_ct++;
   }
 
   return true;
@@ -245,16 +233,9 @@ void TFramework::gl_Reshape ( int width, int height )
   glViewport ( 0, 0, width, height );
 }
 
-#define GETMSECS(T) ((T).tv_sec*1000+(T).tv_nsec/1000000)
-
-
 bool TFramework::gl_Idle ()
 {
-  timespec cur_time;
-  clock_gettime ( CLOCK_REALTIME, &cur_time );
-
-
-  m_ModelMgr->AnimateAll ( GETMSECS ( cur_time ) - GETMSECS ( progInit_time ) );
+  m_ModelMgr->AnimateAll ( m_timer.getElapsedTimeInMilliSec() );
   return true;
 }
 

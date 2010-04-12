@@ -19,8 +19,6 @@
  ***************************************************************************/
 #ifndef FRAMEWORK_IMPL_INCLUDED
 #define FRAMEWORK_IMPL_INCLUDED
-
-#include <ctime>
 #include <map>
 
 #include <framework.h>
@@ -28,6 +26,7 @@
 #include <camera.h>
 #include <input.h>
 #include <light.h>
+#include <timer.h>
 
 
 #if defined QT_GUI_LIB
@@ -67,12 +66,10 @@ private:
   bool g_bWireframe;
   bool g_bShadowsOn;
 
-  double accumTimeSecs  ;
-  double accumPolyCount ;
-  double accumFrameCount;
-  double lastDispPassSec;
+  uint   m_frame_ct;
+  double m_last_fps_rpt_time; // in sec
+  Timer  m_timer;
 
-  timespec progInit_time;
   boost::shared_ptr<Camera>        s_cam;
   boost::shared_ptr<ILightManager> m_LightMgr;
   boost::shared_ptr<IModelMgr>     m_ModelMgr;
