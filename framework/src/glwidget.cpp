@@ -17,9 +17,6 @@
  *   Free Software Foundation, Inc.,                                       *
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
-#include <iostream>
-#include <math.h>
-
 
 #include <framework.h>
 
@@ -31,8 +28,7 @@
 #include <glwidget.h>
 #include <input.h>
 
-
-
+const bool g_attempt_const_framerate = true;
 
 using namespace std;
 
@@ -133,13 +129,15 @@ void GLWidget::mousePressEvent ( QMouseEvent *event )
 
   int x = event->x();
   int y = event->y();
+
   eMouseButton mb = convert_from_mouse_button(event->button());
   eKeyFlags    kf = convert_from_key_modifiers(event->modifiers());
   eMouseFlags  mf = convert_from_mouse_buttons(event->buttons());
 
-  if ( m_ogl_wr->get_input_manager()->NotifyMousePressed(x,y,mb,kf,mf) )
-    updateGL();
+  bool redraw = m_ogl_wr->get_input_manager()->NotifyMousePressed(x,y,mb,kf,mf);
 
+  if(g_attempt_const_framerate == false && redraw)
+    updateGL();
 }
 
 void GLWidget::mouseReleaseEvent( QMouseEvent *event )
@@ -147,12 +145,14 @@ void GLWidget::mouseReleaseEvent( QMouseEvent *event )
 
   int x = event->x();
   int y = event->y();
+
   eMouseButton mb = convert_from_mouse_button(event->button());
   eKeyFlags    kf = convert_from_key_modifiers(event->modifiers());
   eMouseFlags  mf = convert_from_mouse_buttons(event->buttons());
 
+  bool redraw = m_ogl_wr->get_input_manager()->NotifyMouseReleased(x,y,mb,kf,mf);
 
-  if ( m_ogl_wr->get_input_manager()->NotifyMouseReleased(x,y,mb,kf,mf) )
+  if(g_attempt_const_framerate == false && redraw)
     updateGL();
 
 }
@@ -165,7 +165,9 @@ void GLWidget::mouseMoveEvent ( QMouseEvent *event )
   eKeyFlags    kf = convert_from_key_modifiers(event->modifiers());
   eMouseFlags  mf = convert_from_mouse_buttons(event->buttons());
 
-  if ( m_ogl_wr->get_input_manager()->NotifyMouseMoved(x,y,kf,mf) )
+  bool redraw = m_ogl_wr->get_input_manager()->NotifyMouseMoved(x,y,kf,mf);
+
+  if(g_attempt_const_framerate == false && redraw)
     updateGL();
 
 }
@@ -179,7 +181,9 @@ void GLWidget::wheelEvent ( QWheelEvent * event )
   eKeyFlags    kf = convert_from_key_modifiers(event->modifiers());
   eMouseFlags  mf = convert_from_mouse_buttons(event->buttons());
 
-  if(m_ogl_wr->get_input_manager()->NotifyWheel(x,y,d,kf,mf))
+  bool redraw = m_ogl_wr->get_input_manager()->NotifyWheel(x,y,d,kf,mf);
+
+  if(g_attempt_const_framerate == false && redraw)
     updateGL();
 }
 
@@ -188,7 +192,9 @@ void GLWidget::keyPressEvent ( QKeyEvent *event )
   unsigned char key = event->text().data() [0].toAscii();
   eKeyFlags     kf = convert_from_key_modifiers(event->modifiers());
 
-  if ( m_ogl_wr->get_input_manager()->NotifyKey(key,kf) )
+  bool redraw = m_ogl_wr->get_input_manager()->NotifyKey(key,kf);
+
+  if(g_attempt_const_framerate == false && redraw)
     updateGL();
 }
 
