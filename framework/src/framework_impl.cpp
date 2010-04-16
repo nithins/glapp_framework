@@ -123,7 +123,7 @@ void TFramework::gl_Init ()
 
 
   /* by default the back ground color is black */
-  glClearColor ( 1.0, 1.0, 1.0, 1.0 );
+//  glClearColor ( 1.0, 1.0, 1.0, 0.0 );
 
   /* set to draw in window based on depth  */
   glEnable ( GL_DEPTH_TEST );

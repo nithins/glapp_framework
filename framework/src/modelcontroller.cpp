@@ -160,7 +160,7 @@ class TModelController: public virtual IModelController
 
       if ( m_bRotationActive == true )
       {
-        DrawTB();
+//        DrawTB();
 
         Quat q = GetTempQuat();
 
