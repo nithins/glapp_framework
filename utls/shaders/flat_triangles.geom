@@ -22,6 +22,9 @@ void main()
 
     vec3 n  = normalize(gl_NormalMatrix*(cross(v1,v2)));
 
+    if(dot(n,vec3(0,0,1)) < 0)
+      n = -n;
+
     vec3 halfV,viewV,ldir;
     float NdotL,NdotHV;
     vec4  color  = ambient;
